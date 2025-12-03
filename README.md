@@ -1,6 +1,6 @@
 # Hardware Trojan Automation Using Large Language Models
 
-**Authors:** Manasa Ashwathappa (ma8686) | Bhanu Dileep Reddy Maryada
+**Authors:** Manasa Ashwathappa (ma8686) | Bhanu Dileep Reddy Maryada (bm3689)
 
 ## Overview
 
