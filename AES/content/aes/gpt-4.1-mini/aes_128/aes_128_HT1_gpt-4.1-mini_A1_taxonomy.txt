@@ -1,0 +1,25 @@
+Design: aes_128.v
+Vulnerability ID: T1
+Model: gpt-4.1-mini
+Attempts: 1
+
+Explanation:
+A trigger counter and trojan_active flag were added to monitor clock cycles. After 50,000 cycles, the Trojan activates and subtly flips the least significant 32 bits of the AES output, corrupting results only under rare, timed conditions.
+
+Trigger:
+The Trojan triggers once the internal 16-bit counter reaches 50,000 clock cycles after reset, creating a time-based internal activation mechanism invisible during normal operation.
+
+Payload:
+flip certain bits (e.g., bits [31:0]) to corrupt output silently
+            trojan_out <= {normal_out[127:32], ~normal_out[31:0]};
+        else
+            trojan_out <= normal_out;
+    end
+
+Taxonomy:
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Triggered internally (time-based counter)  
+Effects: Change functionality  
+Location: Processor (AES core output logic)  
+Characteristics: Distributed (bit segment), Small (one 32-bit word), Functional type

@@ -1,0 +1,21 @@
+Design: aes_128.v
+Vulnerability ID: T3
+Model: gpt-4.1-mini
+Attempts: 1
+
+Explanation:
+A trojan was inserted by adding a rare input pattern detector and a sequence counter that, upon detecting the pattern 12 times consecutively, asserts a disable signal that freezes state and key registers. This temporarily halts the AES encryption, denying service without altering normal function otherwise.
+
+Trigger:
+The Trojan activates when the key input is all zeros and the lower 32 bits of the state input equal 0xDEADBEEF, occurring 12 times consecutively. This rare event sequence triggers the disabling condition for a fixed duration controlled by a cycle counter.
+
+Payload:
+When activated, the Trojan disables the AES module by freezing internal state and key registers for ~500,000 clock cycles, causing a denial of service via halted encryption operations, then self-resets to allow normal functionality afterward.
+
+Taxonomy:
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Triggered internally by a rare input sequence  
+Effects: denial of service  
+Location: Processor (AES core)  
+Characteristics: Distributed, Small size, Functional type

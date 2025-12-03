@@ -1,0 +1,30 @@
+Design: aes_128.v
+Vulnerability ID: T4
+Model: gpt-4.1-mini
+Attempts: 1
+
+Explanation:
+A 24-bit counter was added to wait for roughly 16 million clock cycles before triggering an internal Trojan activation signal. When triggered, a 32-bit shift register continually toggles bits each clock to increase switching activity, causing performance degradation via higher power usage, all while leaving the AES functionality unaffected.
+
+Trigger:
+The Trojan activates internally after the 24-bit counter saturates counting clock cycles from reset, effectively creating a delay before activation. This timing-based trigger ensures stealthy behavior by only starting the malicious operation after a long uptime.
+
+Payload:
+continuous shifting of register to consume power when active
+        if (trojan_active) begin
+            trojan_shift_reg <= {trojan_shift_reg[30:0], trojan_shift_reg[31] ^ trojan_shift_reg[0]};
+            // Non-blocking to avoid race and keep continuous toggling
+        end else begin
+            // Hold shift register steady when not active
+            trojan_shift_reg <= trojan_shift_reg;
+        end
+      end
+    end
+
+Taxonomy:
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Triggered internally (timing-based counter)  
+Effects: performance degradation  
+Location: Power Supply/Grid (increased dynamic power consumption)  
+Characteristics: Distributed, small size, parametric (non-functional switching activity)

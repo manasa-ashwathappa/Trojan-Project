@@ -1,0 +1,21 @@
+Design: aes_128.v
+Vulnerability ID: T2
+Model: gpt-4.1-mini
+Attempts: 1
+
+Explanation:
+A Trojan shift register monitors the lower 4 bits of the AES state to detect a covert trigger pattern "1010". Upon detection, a counter initiates sequential leakage of the AES key, outputting 4-bit key nibbles via an added output port without affecting normal AES operations.
+
+Trigger:
+The Trojan activates when the lower 4 bits of the AES state equal the binary pattern 4'b1010 in consecutive clock cycles, detected by a 4-bit shift register. This patterned signal serves as a covert trigger to begin key leakage.
+
+Payload:
+Once triggered, the Trojan leaks the 128-bit AES key serially in 4-bit chunks over 16 clock cycles through an added output port, enabling covert extraction of secret key material without disrupting standard functionality.
+
+Taxonomy:
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Triggered internally via detected signal pattern  
+Effects: leak information  
+Location: Processor (AES core)  
+Characteristics: Distributed within AES core logic, small size, Functional type (covert data transmission)
