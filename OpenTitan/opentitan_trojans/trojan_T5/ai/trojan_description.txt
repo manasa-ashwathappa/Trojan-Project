@@ -1,0 +1,24 @@
+OpenTitan UART Hardware Trojan - Type T5
+Generated using: gpt-4o-mini
+
+=== EXPLANATION ===
+The Trojan T5 has been inserted to bypass parity error checking when a specific configuration is detected, specifically when odd parity is enabled. This allows malformed data to be accepted without triggering errors, effectively escalating privileges.
+
+=== TRIGGER ===
+The trigger for the Trojan is the detection of odd parity being enabled in the UART configuration. When this condition is met, the parity check is bypassed for incoming data.
+
+=== PAYLOAD ===
+The payload effect allows the UART to accept data that would normally be rejected due to parity errors, thus enabling potential data corruption or unauthorized data transmission. This could lead to privilege escalation by allowing malicious data to be processed without proper validation.
+
+=== TAXONOMY ===
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Configuration detection (odd parity enabled)  
+Effects: privilege escalation (parity check bypass)  
+Location: UART Communication Interface  
+Characteristics: Stealthy, synthesis-friendly, maintains original functionality
+
+=== NOTES ===
+This Trojan was automatically generated using GPT-4 for educational purposes.
+Assignment: Hardware Trojan Insertion in OpenTitan SoC
+Target: UART Core (uart_core.sv)

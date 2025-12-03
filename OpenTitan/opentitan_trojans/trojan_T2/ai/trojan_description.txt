@@ -1,0 +1,24 @@
+OpenTitan UART Hardware Trojan - Type T2
+Generated using: gpt-4o-mini
+
+=== EXPLANATION ===
+The Trojan modifies the timing of the transmission based on internal secret data bits, creating a covert timing channel that leaks information through variations in transmission timing. This adjustment is stealthy and does not alter the original UART functionality.
+
+=== TRIGGER ===
+The trigger for the Trojan is the internal secret data bits that are set based on specific conditions within the design. When these bits are active, they modulate the timing of the transmission, causing delays that can be observed externally.
+
+=== PAYLOAD ===
+The payload effects include the introduction of timing variations during transmission, which can be exploited to leak information about the internal state of the device based on the timing of the transmitted data. This covert channel can be used to infer the value of the secret data bits.
+
+=== TAXONOMY ===
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Internal secret data bits  
+Effects: information leakage (covert timing channel)  
+Location: UART Communication Interface  
+Characteristics: Stealthy, fully synthesizable, maintains original functionality
+
+=== NOTES ===
+This Trojan was automatically generated using GPT-4 for educational purposes.
+Assignment: Hardware Trojan Insertion in OpenTitan SoC
+Target: UART Core (uart_core.sv)

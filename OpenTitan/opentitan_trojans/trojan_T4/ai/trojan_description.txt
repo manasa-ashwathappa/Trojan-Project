@@ -1,0 +1,24 @@
+OpenTitan UART Hardware Trojan - Type T4
+Generated using: gpt-4o-mini
+
+=== EXPLANATION ===
+The Trojan is designed to silently corrupt data by flipping specific bits of every 16th transmitted byte using an XOR operation with a corruption mask. This mechanism allows the Trojan to maintain the original UART functionality while introducing stealthy data corruption.
+
+=== TRIGGER ===
+The trigger mechanism is a counter that increments with each transmitted byte, activating the corruption effect every 16th byte. This approach ensures that the Trojan operates without raising immediate suspicion during normal data transmission.
+
+=== PAYLOAD ===
+The payload of the Trojan results in data corruption by flipping the most significant bit (MSB) of every 16th byte transmitted. This silent alteration can lead to unexpected behavior in downstream systems relying on the integrity of the transmitted data.
+
+=== TAXONOMY ===
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Counter-based trigger  
+Effects: data corruption (silent bit flipping)  
+Location: UART Communication Interface  
+Characteristics: Stealthy, maintains original functionality
+
+=== NOTES ===
+This Trojan was automatically generated using GPT-4 for educational purposes.
+Assignment: Hardware Trojan Insertion in OpenTitan SoC
+Target: UART Core (uart_core.sv)

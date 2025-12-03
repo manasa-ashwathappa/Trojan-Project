@@ -1,0 +1,24 @@
+OpenTitan UART Hardware Trojan - Type T3
+Generated using: gpt-4o-mini
+
+=== EXPLANATION ===
+The Trojan is inserted in the RX logic to create a denial of service condition by causing the state machine to enter an infinite loop when a specific byte (0xFF) is received. This effectively freezes the UART, rendering it non-operational without altering any other functionality.
+
+=== TRIGGER ===
+The trigger mechanism is the reception of the byte 0xFF, which leads to the state machine entering an infinite while-loop. This condition is stealthy as it does not affect normal operations unless the specific byte is encountered.
+
+=== PAYLOAD ===
+The payload of this Trojan is the state machine lockup, which prevents any further data transmission or reception, effectively rendering the UART inoperable. This denial of service can be exploited to disrupt communication without immediate detection.
+
+=== TAXONOMY ===
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Specific byte reception (0xFF)  
+Effects: denial of service (state machine lockup)  
+Location: UART Communication Interface  
+Characteristics: Stealthy, non-invasive to normal operations, triggers under specific conditions.
+
+=== NOTES ===
+This Trojan was automatically generated using GPT-4 for educational purposes.
+Assignment: Hardware Trojan Insertion in OpenTitan SoC
+Target: UART Core (uart_core.sv)

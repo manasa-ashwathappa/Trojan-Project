@@ -1,0 +1,24 @@
+OpenTitan UART Hardware Trojan - Type T1
+Generated using: gpt-4o-mini
+
+=== EXPLANATION ===
+The Trojan is implemented by introducing a secret debug mode flag that is activated upon the detection of the specific byte sequence `0xDEADBEEF` in the RX path. This mechanism allows unauthorized access to the UART functionality without triggering standard security checks.
+
+=== TRIGGER ===
+The trigger mechanism consists of a byte counter and a sequence buffer that monitors incoming data. When the counter reaches four bytes, it checks if the sequence matches `0xDEADBEEF`, activating the debug mode if it does.
+
+=== PAYLOAD ===
+Once activated, the debug mode bypasses security protocols, enabling backdoor access to the UART functionality. This allows an attacker to manipulate the UART communication without detection.
+
+=== TAXONOMY ===
+Insertion phase: Design  
+Abstraction level: Register-transfer level  
+Activation mechanism: Specific byte sequence detection  
+Effects: backdoor access (trigger-based authentication bypass)  
+Location: UART Communication Interface  
+Characteristics: Stealthy, synthesizable, maintains original functionality
+
+=== NOTES ===
+This Trojan was automatically generated using GPT-4 for educational purposes.
+Assignment: Hardware Trojan Insertion in OpenTitan SoC
+Target: UART Core (uart_core.sv)
